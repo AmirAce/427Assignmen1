@@ -46,6 +46,14 @@ int main()
         return 1;
     }
 
+  
+
+
+
+  
+   const string shutdown = "shutdown";
+   char buff[1024] = {};
+
     // Listening to the assigned socket
     if (listen(serverSocket, 5) == SOCKET_ERROR) {
         cerr << "Listen failed. Error: " << WSAGetLastError() << endl;
@@ -61,33 +69,50 @@ int main()
 
 
 
-    // are we recieving the data correctly?
-    char buffer[1024] = {}; 
-    int bytesReceived = recv(clientSocket, buffer, sizeof(buffer), 0);
-    //check if data is empty or not
-    if (bytesReceived > 0) {
-        cout << "client says: " << buffer << endl; 
-        // Send response to the client
-        toCap(buffer, bytesReceived);
+    
+    while(strcmp(buff,shutdown.c_str()) != 0  )
+    {
+    
+        // are we recieving the data correctly?
 
-        
-        
-        if(send(clientSocket, buffer, std::strlen(buffer), 0) == SOCKET_ERROR)
-        {
-            std::cerr << "Send failed. Error: " << WSAGetLastError() << std::endl;
+        if(listen(serverSocket, 5) == SOCKET_ERROR) {
+            cerr << "Listen failed. Error: " << WSAGetLastError() << endl;
+            closesocket(serverSocket);
+            WSACleanup();
+            return 1;
         }
+
+        
+        int bytesReceived = recv(clientSocket, buff, sizeof(buff), 0);
+        //check if data is empty or not
+        if (bytesReceived > 0) {
+            cout << "client says: " << buff << endl; 
+            // Send response to the client
+            toCap(buff, bytesReceived);
+
+        
+        
+            if(send(clientSocket, buff, std::strlen(buff) + 10, 0) == SOCKET_ERROR)
+            {
+                std::cerr << "Send failed. Error: " << WSAGetLastError() << std::endl;
+            }
             
-    } else {
-        cerr << "Recv failed. Error: " << WSAGetLastError() << endl;
+        } else {
+            cerr << "Recv failed. Error: " << WSAGetLastError() << endl;
+        }
+
     }
-
     // quit
-    closesocket(clientSocket);
+    cout<<"shutting down";
 
-    //shutdown
-    closesocket(serverSocket);
+    // shutdown
+    closesocket(clientSocket);
+   
+
+
+  //  closesocket(serverSocket);
 
     WSACleanup();
-    return 0; 
+   // return 0; 
 }
 
