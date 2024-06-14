@@ -1,0 +1,95 @@
+read me file of what language/compiler used, run environment, etc.
+
+
+c++, vs studio 2022 for sever, and c++, rider for client 
+ code for programs
+
+
+
+Client:
+
+create a windows socket api object (wsadata) , then check if the version in use is valid, if not, print out wsa object not created
+
+ 	create a client socket called clientsocket with a  domain, int type and int protocol as parameters, check if the socket is valid, if not throw a error stating the socket is incorrect, then wipe the wsa data from memory for further security
+	
+	create a socket address with a ipv4 address family, 8080 port number, any incoming address, and zero the rest of the memory
+ 	
+
+	Convert IP address from text to binary form using the inet_pton method, and give it ipv4 as the address family, 127.0.0.1 as the cleint address in text form and a pointer to the client address as the address memory location.
+
+	
+	
+			bind the socket using connect inside a if statement, and if it fails, say client failed to connect to server, followed by the last error throwed by wsa, using the wsagetlasterror method then close the socket using closesocket method, and cleanup the wsa object, and return a 1, if succeded nothing happens.
+
+
+			make a text message and use the send method to send the message to the server, check if its recieved, if not give a error and tell the user why	
+
+
+	if successfull, make a 1mb character buffer, intialize it to 0, then put the message received into the buffer, check if its not empty, print the server message to the console, if it is, say recv falied and give the error details using wsagetlasterror
+
+clean up the server and close the socket
+	
+		
+
+		the day to the
+server. The uploaded message will replace the currently stored message, to be returned to
+another client upon receiving the MSGGET message.
+3. A client can terminate the connection by sending a QUIT message.
+4. A client can shutdown the server by sending a SHUTDOWN message and providing the correct password.
+		
+
+
+//client main
+
+
+//present user with 4 options, recieve, send , terminate connection, shutdown
+
+//switch on user data
+
+// for recieve: do a recieve function
+
+//for send: get characters from user and do a send function to the server
+
+
+//for terminate: terminate the socket
+
+// for shutdown : close the server socket
+
+Server:
+	
+create a windows socket api object (wsadata) , then check if the version in use is valid, if not, print out wsa object not created
+
+ 	create a server socket stream  with a  domain of ipv4, type, which is socket stream and defualt protocol of 0 as parameters, check if the socket is valid, if not throw a error stating the socket is incorrect, then wipe the wsa data from memory for further security
+	
+	create a socket address with a ipv4 address family, 8080 port number, any incoming address, and zero the rest of the memory
+ 	
+	bind the server socket using the bind method, and given the server socket, server address, and sizeof the address, and if it fails, say client failed to connect to server, followed by the last error throwed by wsa, using the wsagetlasterror method then close the socket using closesocket method, and cleanup the wsa object, and return a 1, if succeded nothing happens.
+  
+	listen to the server address for any incoming messages with the listen method, and a backlog of 5, if it equales a socket error, tell the user so, and why, givin the wsa object data, then close the socket and cleanup the memory that was taken up by the wsa obj, and return a 1.
+
+
+print server is listening to port 8080
+
+	then intialize another socket called client socket, set the reciever as the server socket, and the address and address length as null. 
+
+if the client socket is invalid, print error and close socket(this should probably be a method to reduce redundancy). 
+
+ 
+
+
+	
+
+	bind the socket using connect inside a if statement, and if it fails, say client failed to connect to server, followed by the last error throwed by wsa, using the wsagetlasterror method then close the socket using closesocket method, and cleanup the wsa object, and return a 1, if succeded nothing happens.
+
+    // Accepting connection request
+
+ //check the Receiving data
+
+close the socket and cleanup the wsa obj.
+make a 1mb character buffer, intialize it to 0, then put the message received into the buffer, check if its not empty, print the server message to the console, if it is, say recv falied and give the error details using wsagetlasterror.
+
+close client and server socket, then clean both wsa objects using the wsacleanup method
+	
+
+
+	
